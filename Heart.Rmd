@@ -1,0 +1,14 @@
+---
+title: "Heart"
+author: "Rodion Stolyar"
+date: "4/9/2020"
+output: html_document
+---
+
+```{r}
+heart <- read.csv("heart.csv")
+str(heart)
+summary(heart)
+
+```
+
