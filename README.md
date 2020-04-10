@@ -10,3 +10,5 @@ Questions to Answer
 1) What variables have the highest impact on likelihood of a cardiac event? (Random Forest Model) 
 2) What are the manifestations of heart disease in men vs women?
 3) How reliably does Flueroscopy values predict cardiac event? 
+
+https://lucdemortier.github.io/projects/3_mcnulty
