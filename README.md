@@ -5,4 +5,7 @@
 ## Authors: Rodion Stolyar
 
 This is a line from RStudio from Juan
-https://lucdemortier.github.io/projects/3_mcnulty
+
+Questions to Answer 
+1) What variables have the highest impact on likelihood of a cardiac event?
+2) What are the manifestations of heart disease in men vs women
