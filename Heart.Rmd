@@ -6,6 +6,34 @@ output: html_document
 ---
 
 ```{r}
+library(tidyverse)
+library(readr)
+library(ROCR)
+library(PerformanceAnalytics)
+library(e1071)
+library(caret)
+library(gbm)
+library(corrplot)
+library(ggcorrplot)
+library(MASS)
+library(rpart)
+library(caTools)
+library(naivebayes)
+library(class)
+library(ISLR)
+library(glmnet)
+library(Hmisc)
+library(funModeling)
+library(pROC)
+library(randomForest)
+library(klaR)
+library(scales)
+library(cluster)
+library(factoextra)
+library(DataExplorer)
+library(ClustOfVar)
+library(GGally)
+
 heart <- read.csv("heart.csv")
 str(heart)
 summary(heart)
@@ -16,28 +44,25 @@ summary(heart)
 ```{r}
 ## Here we are cleaning the data set
 
-data2 <- heart 
-heart$sex = ifelse(heart$sex == 1, "MALE", "FEMALE")
-heart$fbs = ifelse(heart$fbs == 1, ">120", "<=120")
-heart$exang = ifelse(heart$exang == 1, "YES" ,"NO")
-heart$cp = ifelse(heart$cp == 1, "ATYPICAL ANGINA",
-                      ifelse(heart$cp == 2, "NON-ANGINAL PAIN", "ASYMPTOMATIC"))
-         
-heart$restecg = ifelse(heart$restecg == 0, "NORMAL",
-                           if_else(restecg == 1, "ABNORMALITY", "PROBABLE OR DEFINITE"))
-         
-heart$slope = as.factor(heart$slope)
-heart$ca = as.factor(heart$ca)
-        
-heart$thal = as.factor(heart$thal)
-heart$target = ifelse(heart$target == 1, "YES", "NO")
-   
-      
-mutate_if(is.character, as.factor) 
-dplyr::select(target, sex, fbs, exang, cp, restecg, slope, ca, thal, everything())
+data2 <- heart %>% 
+  mutate(sex = if_else(sex == 1, "MALE", "FEMALE"),
+         fbs = if_else(fbs == 1, ">120", "<=120"),
+         exang = if_else(exang == 1, "YES" ,"NO"),
+         cp = if_else(cp == 1, "ATYPICAL ANGINA",
+                      if_else(cp == 2, "NON-ANGINAL PAIN", "ASYMPTOMATIC")),
+         restecg = if_else(restecg == 0, "NORMAL",
+                           if_else(restecg == 1, "ABNORMALITY", "PROBABLE OR DEFINITE")),
+         slope = as.factor(slope),
+         ca = as.factor(ca),
+         thal = as.factor(thal),
+         target = if_else(target == 1, "YES", "NO")
+         ) %>% 
+  mutate_if(is.character, as.factor) %>% 
+  dplyr::select(target, sex, fbs, exang, cp, restecg, slope, ca, thal, everything())
 
-#this is Deep
-
+summary(data2)
 
 ```
+
+
 
