@@ -36,5 +36,7 @@ heart$target = ifelse(heart$target == 1, "YES", "NO")
 mutate_if(is.character, as.factor) 
 dplyr::select(target, sex, fbs, exang, cp, restecg, slope, ca, thal, everything())
 
+
+
 ```
 
