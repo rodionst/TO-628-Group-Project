@@ -10,9 +10,31 @@ heart <- read.csv("heart.csv")
 str(heart)
 summary(heart)
 
-##Testing a push 
-## Test 2
+```
 
+
+```{r}
+## Here we are cleaning the data set
+
+data2 <- heart 
+heart$sex = ifelse(heart$sex == 1, "MALE", "FEMALE")
+heart$fbs = ifelse(heart$fbs == 1, ">120", "<=120")
+heart$exang = ifelse(heart$exang == 1, "YES" ,"NO")
+heart$cp = ifelse(heart$cp == 1, "ATYPICAL ANGINA",
+                      ifelse(heart$cp == 2, "NON-ANGINAL PAIN", "ASYMPTOMATIC"))
+         
+heart$restecg = ifelse(heart$restecg == 0, "NORMAL",
+                           if_else(restecg == 1, "ABNORMALITY", "PROBABLE OR DEFINITE"))
+         
+heart$slope = as.factor(heart$slope)
+heart$ca = as.factor(heart$ca)
+        
+heart$thal = as.factor(heart$thal)
+heart$target = ifelse(heart$target == 1, "YES", "NO")
+   
+      
+mutate_if(is.character, as.factor) 
+dplyr::select(target, sex, fbs, exang, cp, restecg, slope, ca, thal, everything())
 
 ```
 
