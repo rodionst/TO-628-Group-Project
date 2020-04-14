@@ -34,6 +34,8 @@ library(DataExplorer)
 library(ClustOfVar)
 library(GGally)
 library(gmodels)
+library(C50)
+
 
 # age: age in years
 # sex: (1 = male; 0 = female)
@@ -47,7 +49,7 @@ library(gmodels)
 # oldpeak: ST depression induced by exercise relative to rest
 # slope: Slope of peak exercise ST segment (0 = upsloping, 1 = flat, or 2 = downsloping)
 # ca: number of major vessels (0-3) colored by flourosopy 4 = NA
-# thal: Thalium stress test result 3 = normal; 6 = fixed defect; 7 = reversable defect 0 = NA
+# thal: Thalium stress test result 0 = normal or fixed defect, 1 = reversible defect
 # target: Heart disease status 1 or 0 (0 = heart disease 1 = asymptomatic)
 
 
@@ -132,6 +134,26 @@ accuracy1
 # this model is 85% accurate
 # this model accuatately predicted the presence of heart disease 85 percent of the time
 # we have 3/63 false negatives
+
+
+# try decision tree to det imp factor
+
+data2_dt <- C5.0(data2_train[-1], data2_train$target)
+
+#plot will not help but try
+plot(data2_dt)
+
+# we can see the most critical factor is checking balance
+
+# display simple facts about the tree
+data2_dt
+
+# display detailed information about the tree
+summary(data2_dt)
+
+# thal is the principal attribute
+# 0 is 
+
 
 ```
 
