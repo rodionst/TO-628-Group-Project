@@ -33,6 +33,7 @@ library(factoextra)
 library(DataExplorer)
 library(ClustOfVar)
 library(GGally)
+library(gmodels)
 
 # age: age in years
 # sex: (1 = male; 0 = female)
@@ -86,6 +87,51 @@ summary(data2)
 logit.mode1 <- glm( target ~ . , family = "binomial", data = data2)
 
 summary(logit.mode1)
+
+
+# when men have the heart attack, men come to ED with pain 
+# while women have symptoms that are not nominally associated with heart attack
+# moreover gender bias by physician plays a role
+
+
+logit.mode2 <- glm( target ~ sex*cp + .  , family = "binomial", data = data2)
+
+summary(logit.mode2)
+
+# the lower the AIC the better your model, the right direction in lower AIC
+
+#split into test and train
+
+set.seed(12345)
+data2_rand <- data2[order(runif(303)), ]
+
+# the 303 number is the number of rows
+
+summary(data2$trestbps)
+summary(data2_rand$trestbps)
+
+str(data2)
+
+set.seed(300)
+data2_train <- data2_rand[1:240, ]
+data2_test  <- data2_rand[241:303, ]
+
+rf <- randomForest(target ~ ., data = data2_train)
+
+
+
+rf
+
+data2_pred_rf <- predict(rf, data2_test)
+CrossTable(data2_test$target, data2_pred_rf,
+           prop.chisq = FALSE, prop.c = FALSE, prop.r = FALSE,
+           dnn = c('actual heart disease', 'predicted heart disease'))
+
+accuracy1=(32+22)/(63)
+accuracy1
+# this model is 85% accurate
+# this model accuatately predicted the presence of heart disease 85 percent of the time
+# we have 3/63 false negatives
 
 ```
 
