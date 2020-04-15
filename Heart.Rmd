@@ -1,6 +1,6 @@
 ---
 title: "Heart"
-author: "Rodion Stolyar"
+authors: "Deep Patel, Rodion Stolyar"
 date: "4/9/2020"
 output: html_document
 ---
@@ -50,6 +50,7 @@ library(C50)
 # slope: Slope of peak exercise ST segment (0 = upsloping, 1 = flat, or 2 = downsloping)
 # ca: number of major vessels (0-3) colored by flourosopy 4 = NA
 # thal: Thalium stress test result 0 = normal or fixed defect, 1 = reversible defect
+# thal: 0,1,2,3?
 # target: Heart disease status 1 or 0 (0 = heart disease 1 = asymptomatic)
 
 
@@ -59,9 +60,12 @@ summary(heart)
 
 ```
 
+Methodology
+
+Results and Discussion
 
 ```{r}
-## Here we are cleaning the data set
+## Here we are cleaning the data set and modifying the factors
 
 data2 <- heart %>% 
   mutate(sex = if_else(sex == 1, "MALE", "FEMALE"),
@@ -94,7 +98,8 @@ summary(logit.mode1)
 # when men have the heart attack, men come to ED with pain 
 # while women have symptoms that are not nominally associated with heart attack
 # moreover gender bias by physician plays a role
-
+# blood sugar >120 is more prone
+# old peak is not a sig variable
 
 logit.mode2 <- glm( target ~ sex*cp + .  , family = "binomial", data = data2)
 
@@ -138,6 +143,16 @@ accuracy1
 
 # try decision tree to det imp factor
 
+data2_train$thal = NULL
+data2_train$thalach = NULL
+data2_train$ca = NULL
+data2_train$oldpeak = NULL
+data2_train$slope = NULL
+
+
+# try without thal, thalach, ca, oldpeak, slope
+# everyone gets ekg, fasting blood sugar, cholestorol
+
 data2_dt <- C5.0(data2_train[-1], data2_train$target)
 
 #plot will not help but try
@@ -153,6 +168,8 @@ summary(data2_dt)
 
 # thal is the principal attribute
 # 0 is 
+
+
 
 
 ```
