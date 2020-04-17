@@ -254,7 +254,7 @@ accuracy = (26+23)/63
 
 accuracy
 
-# create another decision tree by sex split
+################################################# create another decision tree by sex split
 
 
 
