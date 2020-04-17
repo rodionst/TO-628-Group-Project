@@ -143,11 +143,7 @@ accuracy1
 
 # try decision tree to det imp factor
 
-data2_train$thal = NULL
-data2_train$thalach = NULL
-data2_train$ca = NULL
-data2_train$oldpeak = NULL
-data2_train$slope = NULL
+
 
 
 # try without thal, thalach, ca, oldpeak, slope
@@ -168,6 +164,99 @@ summary(data2_dt)
 
 # thal is the principal attribute
 # 0 is 
+
+
+
+
+
+
+
+
+data2_train$thal = NULL
+data2_test$thal = NULL
+
+
+
+data2_dt <- C5.0(data2_train[-1], data2_train$target)
+
+#plot will not help but try
+plot(data2_dt)
+
+
+# thal was removed because it is not the first thing donte to apatient
+# sthal is a stress tet that is further down the road
+# if you had a mole and doc suggests chemotherapy
+
+
+
+
+
+data2_train$thalach = NULL
+data2_test$thalach = NULL
+
+data2_dt <- C5.0(data2_train[-1], data2_train$target)
+
+#plot will not help but try
+plot(data2_dt)
+
+
+
+
+
+
+
+data2_train$ca = NULL
+data2_test$ca = NULL
+
+data2_dt <- C5.0(data2_train[-1], data2_train$target)
+
+#plot will not help but try
+plot(data2_dt)
+
+
+
+
+
+
+
+data2_train$oldpeak = NULL
+data2_test$oldpeak = NULL
+
+data2_dt <- C5.0(data2_train[-1], data2_train$target)
+
+#plot will not help but try
+plot(data2_dt)
+
+
+
+
+
+
+
+data2_train$slope = NULL
+data2_test$slope = NULL
+
+data2_dt <- C5.0(data2_train[-1], data2_train$target)
+
+#plot will not help but try
+plot(data2_dt)
+
+
+#prestest prob vs post test prob
+
+data2_pred <- predict(data2_dt, data2_test)
+
+CrossTable(data2_test$target, data2_pred,
+           prop.chisq = FALSE, prop.c = FALSE, prop.r = FALSE,
+           dnn = c('actual target', 'predicted target'))
+
+accuracy = (26+23)/63
+
+accuracy
+
+# create another decision tree by sex split
+
+
 
 
 
