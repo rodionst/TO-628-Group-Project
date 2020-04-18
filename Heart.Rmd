@@ -257,7 +257,7 @@ accuracy
 ################################################# create another decision tree by sex split
 
 
-
+library(partykit)
 
 
 
