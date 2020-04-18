@@ -257,9 +257,12 @@ accuracy
 ################################################# create another decision tree by sex split
 
 
+#Splitiing the view of the tree
 library(partykit)
 
-
+myTree2 <- C50:::as.party.C5.0(data2_dt)
+branch1 = plot(myTree2[2])
+branch2 = plot(myTree2[20])
 
 ```
 
